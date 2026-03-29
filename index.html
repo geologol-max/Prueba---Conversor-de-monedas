@@ -4,63 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversor de Monedas Nacional</title>
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- TailwindCSS v4 CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/index.css">
 </head>
-<body class="bg-[#1e2124] text-white font-sans min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-all max-w-md bg-[#2f3136] p-8 rounded-xl shadow-2xl border border-gray-700">
-        <h1 class="text-2xl font-bold text-center mb-8 border-b border-gray-600 pb-4">
-            Conversor de monedas Nacional
-        </h1>
+<body class="bg-slate-930 text-white min-h-screen flex items-center justify-center p-6 relative overflow-x-hidden font-[Inter]">
+    
+    <!-- Dynamic Background Elements -->
+    <div class="fixed top-[-15%] left-[-10%] w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-[-15%] right-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="w-full max-w-md relative z-10 p-8 sm:p-10 rounded-3xl shadow-2xl border border-white/5 bg-slate-900/60 backdrop-blur-2xl">
+        
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400 mb-3 tracking-tight">
+                Conversor
+            </h1>
+            <p class="text-slate-400 text-sm font-light">Convierte tus pesos chilenos y revisa el historial histórico en tiempo real.</p>
+        </div>
 
         <div class="space-y-6">
             <!-- Input CLP -->
-            <div class="bg-[#36393f] p-6 rounded-lg text-center">
-                <label class="block text-lg font-semibold mb-3">Pesos CLP</label>
-                <input 
-                    type="number" 
-                    id="monto-clp" 
-                    placeholder="Ingrese el monto en CLP"
-                    class="w-full p-3 rounded bg-white text-black text-center text-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                >
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2 ml-1">Monto en CLP</label>
+                <div class="relative group">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold group-focus-within:text-cyan-400 transition-colors">$</span>
+                    <input 
+                        type="number" 
+                        id="monto-clp" 
+                        placeholder="0.00"
+                        class="w-full pl-8 pr-4 py-3 sm:py-4 rounded-2xl bg-slate-800/80 border border-slate-700/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all duration-300 shadow-inner"
+                    >
+                </div>
             </div>
 
             <!-- Selector de Moneda -->
-            <div class="text-center">
-                <label class="block text-sm font-medium mb-2">Moneda a convertir:</label>
-                <select 
-                    id="moneda-destino"
-                    class="w-full p-3 rounded bg-white text-black appearance-none cursor-pointer focus:outline-none"
-                >
-                    <option value="" disabled selected>Seleccione moneda</option>
-                    <option value="dolar">Dólar</option>
-                    <option value="euro">Euro</option>
-                    <option value="uf">UF</option>
-                    <option value="utm">UTM</option>
-                </select>
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2 ml-1">Moneda de destino</label>
+                <div class="relative group">
+                    <select 
+                        id="moneda-destino"
+                        class="w-full px-5 py-3 sm:py-4 rounded-2xl bg-slate-800/80 border border-slate-700/50 text-white appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all duration-300 shadow-inner"
+                    >
+                        <option value="" disabled selected>Seleccione moneda</option>
+                        <option value="dolar">Dólar (USD)</option>
+                        <option value="euro">Euro (EUR)</option>
+                        <option value="uf">UF</option>
+                        <option value="utm">UTM</option>
+                    </select>
+                    <!-- Chevron icon -->
+                    <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-focus-within:text-cyan-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <!-- Botón Buscar -->
             <button 
                 id="btn-buscar"
-                class="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 rounded-lg transition-colors duration-200 shadow-lg"
+                class="w-full mt-4 bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-white font-medium py-3.5 sm:py-4 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.25)] hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
             >
-                Buscar
+                <span>Convertir moneda</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
             </button>
 
+            <!-- Error -->
+            <div id="error-container" class="opacity-0 h-0 overflow-hidden transition-all duration-300">
+                <p id="error-text" class="text-rose-400 text-sm text-center bg-rose-500/10 py-2 rounded-lg border border-rose-500/20"></p>
+            </div>
+
             <!-- Resultado -->
-            <div id="resultado" class="text-center text-xl font-bold mt-4 min-h-[1.5rem]">
-                ...
+            <div id="resultado-container" class="opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                <div class="mt-2 p-5 rounded-2xl bg-cyan-900/10 border border-cyan-500/20 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-indigo-500/5"></div>
+                    <p class="text-slate-400 text-xs mb-1 uppercase tracking-widest relative z-10 font-semibold">Resultado de conversión</p>
+                    <div id="resultado" class="text-3xl sm:text-4xl font-bold text-white relative z-10 tracking-tight">
+                        $0.00
+                    </div>
+                </div>
             </div>
 
             <!-- Gráfico -->
-            <div class="mt-8 bg-white rounded-lg p-2 hidden" id="contenedor-grafico">
-                <canvas id="historialChart"></canvas>
+            <div id="contenedor-grafico" class="opacity-0 max-h-0 overflow-hidden transition-all duration-700">
+                <div class="mt-4 p-4 rounded-2xl bg-slate-800/40 border border-slate-700/50 h-[260px] relative">
+                    <canvas id="historialChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Style config for Tailwind CDN -->
+    <style>
+        .bg-slate-930 { background-color: #0f121a; }
+    </style>
+
     <script type="module" src="./src/script.js"></script>
 </body>
 </html>
-

@@ -1,24 +1,31 @@
-@import "tailwindcss";
-
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-}
-
+/* Basic global styles */
 body {
-    background-color: #1e2124;
+    background-color: #0f121a;
+    color: #f1f5f9;
 }
 
-/* Estilos personalizados para el scroll si es necesario */
+/* Custom Webkit scrollbar for a clean look */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #2f3136;
+    background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 4px;
+    background: #334155;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #777;
+    background: #475569;
+}
+
+/* Chrome, Safari, Edge, Opera: Hide arrows in input[number] */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
