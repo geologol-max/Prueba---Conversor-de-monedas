@@ -1,0 +1,5 @@
+{
+  "name": "Conversor de Monedas Nacional",
+  "description": "Aplicación de conversión de pesos chilenos a divisas extranjeras con historial gráfico.",
+  "requestFramePermissions": []
+}

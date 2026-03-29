@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas Nacional</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./src/index.css">
+</head>
+<body class="bg-[#1e2124] text-white font-sans min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-all max-w-md bg-[#2f3136] p-8 rounded-xl shadow-2xl border border-gray-700">
+        <h1 class="text-2xl font-bold text-center mb-8 border-b border-gray-600 pb-4">
+            Conversor de monedas Nacional
+        </h1>
+
+        <div class="space-y-6">
+            <!-- Input CLP -->
+            <div class="bg-[#36393f] p-6 rounded-lg text-center">
+                <label class="block text-lg font-semibold mb-3">Pesos CLP</label>
+                <input 
+                    type="number" 
+                    id="monto-clp" 
+                    placeholder="Ingrese el monto en CLP"
+                    class="w-full p-3 rounded bg-white text-black text-center text-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                >
+            </div>
+
+            <!-- Selector de Moneda -->
+            <div class="text-center">
+                <label class="block text-sm font-medium mb-2">Moneda a convertir:</label>
+                <select 
+                    id="moneda-destino"
+                    class="w-full p-3 rounded bg-white text-black appearance-none cursor-pointer focus:outline-none"
+                >
+                    <option value="" disabled selected>Seleccione moneda</option>
+                    <option value="dolar">Dólar</option>
+                    <option value="euro">Euro</option>
+                    <option value="uf">UF</option>
+                    <option value="utm">UTM</option>
+                </select>
+            </div>
+
+            <!-- Botón Buscar -->
+            <button 
+                id="btn-buscar"
+                class="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 rounded-lg transition-colors duration-200 shadow-lg"
+            >
+                Buscar
+            </button>
+
+            <!-- Resultado -->
+            <div id="resultado" class="text-center text-xl font-bold mt-4 min-h-[1.5rem]">
+                ...
+            </div>
+
+            <!-- Gráfico -->
+            <div class="mt-8 bg-white rounded-lg p-2 hidden" id="contenedor-grafico">
+                <canvas id="historialChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./src/script.js"></script>
+</body>
+</html>
+
